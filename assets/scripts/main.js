@@ -24,6 +24,7 @@ function getRecipesFromStorage() {
 	// A9. TODO - Complete the functionality as described in this function
 	//           header. It is possible in only a single line, but should
 	//           be no more than a few lines.
+	if (JSON.parse(localStorage.getItem("recipes")) == null) return [];
 	return JSON.parse(localStorage.getItem("recipes"));
 }
 
@@ -74,7 +75,7 @@ function initFormHandler() {
 
 	// B3. TODO - Add an event listener for the 'submit' event, which fires when the
 	//            submit button is clicked
-	formElem.querySelector('button[type="submit"]').addEventListener("click", function() {
+	formElem.addEventListener("submit", function() {
 		// Steps B4-B9 will occur inside the event listener from step B3
 		// B4. TODO - Create a new FormData object from the <form> element reference above
 		let formData = new FormData(formElem);
@@ -98,8 +99,7 @@ function initFormHandler() {
 
 		// B9. TODO - Get the recipes array from localStorage, add this new recipe to it, and
 		//            then save the recipes array back to localStorage
-		let recipes = JSON.parse('{}');
-		if(localStorage.getItem("recipes") != null) recipes = JSON.parse(localStorage.getItem("recipes"));
+		let recipes = getRecipesFromStorage();
 		recipes.push(recipeObject);
 		saveRecipesToStorage(recipes);
 	})
